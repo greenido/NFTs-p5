@@ -32,9 +32,8 @@ function sketch(p) {
 
   p.setup = () => {
     let canvas = p.createCanvas(600, 600);
-    let r1 = Math.floor(p.random(10, 200)); // r is a random number between 0 - 255
-
-    let g1 = Math.floor(p.random(10, 255)); // g is a p.random number betwen 100 - 200
+    let r1 = Math.floor(p.random(10, 200)); 
+    let g1 = Math.floor(p.random(10, 255));
     let b1 = Math.floor(p.random(20, 255));
     p.background(r1, g1, b1);
 
@@ -44,7 +43,7 @@ function sketch(p) {
         // The params to the CSV = the meta data for our NFT
         let row = randomTitle();
         row += "," + randomSentence() + ",";
-        row += "https://github.com/greenido/NFTs-p5/blob/main/images/m_" + maxShapes + ".png" + " ,";
+        row += "https://raw.githubusercontent.com/greenido/NFTs-p5/main/images/m_" + maxShapes + ".png" + " ,";
         row += "#dce9b5,";
         row += "https://www.youtube.com/watch?v=IwmJ48Ke5SQ,";
         row += r1 + " / " + g1 + " / " + b1 + ",";
@@ -59,6 +58,7 @@ function sketch(p) {
     }, 5000);
   };
 
+  // The drawing stuff
   p.draw = () => {
     if (curImages > maxShapes) {
       return;
@@ -67,7 +67,7 @@ function sketch(p) {
     let x = p.random(600);
     let y = p.random(600);
     
-    console.log("curImage: " + curImages + " Random shape: " + shape);
+    console.log("* CurImage: " + curImages + " Random shape: " + shape);
     let r = p.random(255); 
     let g = p.random(10, 250); 
     let b = p.random(250); 
@@ -236,6 +236,6 @@ function randomTitle() {
 }
 
 //
-//
+// Start the party
 //
 let p5Instance = p5.createSketch(sketch);
