@@ -6,7 +6,6 @@ fs = require('fs');
 //
 function sketch(p) {
     p.setup = () => {
-      //shapeVal, maxShapes = 120
       const maxShapes = Math.floor(p.random(60, 80));
       const shapeVal = 2;
 

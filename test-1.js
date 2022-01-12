@@ -1,12 +1,14 @@
 //
+// Build generated images and a CSV for an NFT drop
+//
+// @author: Ido
+// @date: 1/2022
 //
 // The CSV header:
 // name,description,external_url,background_color,youtube_url,background color, shape, max shapes
 //
-//
-const p5 = require('node-p5');
-fs = require('fs');
-
+const p5 = require("node-p5");
+fs = require("fs");
 
 //
 //
@@ -14,74 +16,83 @@ fs = require('fs');
 function sketch(p) {
   let curImages = 0;
   let maxShapes = Math.floor(p.random(255));
+  let shape = Math.floor(p.random(4)) + 1;
+  if (shape == 3) {
+    // let's avoid the 'lines' for now
+    shape = 2;
+  }
+  let shapeName = "Square"; // "Circle"; //"Triangle"; //"Line"; //"Square";
+  if (shape == 1) {
+    shapeName = "Circle";
+  } else if (shape == 3) {
+    shapeName = "Line";
+  } else if (shape == 4) {
+    shapeName = "Triangle";
+  }
 
-    p.setup = () => {
-        let canvas = p.createCanvas(600, 600);
-        let r1 = Math.floor(p.random(10, 200)); // r is a random number between 0 - 255
-       
-        let g1 = Math.floor(p.random(10, 255)); // g is a p.random number betwen 100 - 200
-        let b1 = Math.floor(p.random(20, 255));
-        p.background(r1,g1,b1);
-        
-        setTimeout(() => {
-            p.saveCanvas(canvas, "images/m_" + maxShapes, 'png').then(filename => {
-                console.log(`Saved the canvas as ${filename}`);
-                let shape = 2; //4; //3; //2;
-                let shapeName = "Square"; // "Circle"; //"Triangle"; //"Line"; //"Square";
-                let shapeVal = 2;
-                if (shapeVal == 1) {
-                  shapeName = "Circle";
-                } else if (shapeVal == 3) {
-                  shapeName = "Line";
-                } else if (shapeVal == 4) {
-                  shapeName = "Triangle";
-                }
-              
-                let row = randomTitle();
-                row += "," + randomSentence() + ",";
-                row += "https://github.com/greenido/todo/" + maxShapes + ".png" + " ,";
-                row += "#dce9b5,";
-                row += "https://www.youtube.com/watch?v=IwmJ48Ke5SQ,"
-                row += r1 + " / " + g1 + " / " + b1 + ",";
-                row += shapeName + ",";
-                row += maxShapes + "\n";
-                fs.appendFile('nfts-1.csv', row, function (err) {
-                  if (err) throw err;
-                  console.log('Saved our CSV info 🚀');
-                  process.exit(0);
-                });
-            });
-        }, 5000);
-    }
+  p.setup = () => {
+    let canvas = p.createCanvas(600, 600);
+    let r1 = Math.floor(p.random(10, 200)); // r is a random number between 0 - 255
 
-    p.draw = () => {
-      if (curImages > maxShapes) {
-        return;
-      }
-      curImages++;
-      let x = p.random(600);
-      let y= p.random(600);
-      let shape = Math.floor(p.random(4))+1;
-      if (shape == 3) shape = 2;
-      console.log("curImage: " + curImages + " Random shape: " +shape);
-      let r = p.random(255); // r is a p.random number between 0 - 255
-      let g = p.random(10, 250); // g is a p.random number betwen 100 - 200
-      let b = p.random(250); // b is a p.random number between 0 - 100
-      let a = p.random(10, 255); // a is a p.random number between 200 - 255
-      p.strokeWeight(3);
-      p.stroke(r, g, b);
-      p.fill(r, g, b, a);
-      if (shape == 1) {
-        p.circle(x, y, p.random(40, 100));
-      } else if (shape == 2) {
-        p.square(x, y, p.random(40, 100));
-      } else if (shape == 3) {
-        p.strokeWeight(5);
-        p.line(x, y, x + p.random(40, 500), y - p.random(50, 450));
-      } else if (shape == 4) {
-        p.triangle(x, y, x + p.random(40, 100), y - p.random(50, 150), x / 2, y / 2);
-      }
+    let g1 = Math.floor(p.random(10, 255)); // g is a p.random number betwen 100 - 200
+    let b1 = Math.floor(p.random(20, 255));
+    p.background(r1, g1, b1);
+
+    setTimeout(() => {
+      p.saveCanvas(canvas, "images/m_" + maxShapes, "png").then((filename) => {
+        console.log(`Saved the canvas as ${filename}`);
+        // The params to the CSV = the meta data for our NFT
+        let row = randomTitle();
+        row += "," + randomSentence() + ",";
+        row += "https://github.com/greenido/todo/" + maxShapes + ".png" + " ,";
+        row += "#dce9b5,";
+        row += "https://www.youtube.com/watch?v=IwmJ48Ke5SQ,";
+        row += r1 + " / " + g1 + " / " + b1 + ",";
+        row += shapeName + ",";
+        row += maxShapes + "\n";
+        fs.appendFile("nfts-1.csv", row, function (err) {
+          if (err) throw err;
+          console.log("Saved our CSV info 🚀");
+          process.exit(0);
+        });
+      });
+    }, 5000);
+  };
+
+  p.draw = () => {
+    if (curImages > maxShapes) {
+      return;
     }
+    curImages++;
+    let x = p.random(600);
+    let y = p.random(600);
+    
+    console.log("curImage: " + curImages + " Random shape: " + shape);
+    let r = p.random(255); 
+    let g = p.random(10, 250); 
+    let b = p.random(250); 
+    let a = p.random(10, 255); 
+    p.strokeWeight(3);
+    p.stroke(r, g, b);
+    p.fill(r, g, b, a);
+    if (shape == 1) {
+      p.circle(x, y, p.random(40, 100));
+    } else if (shape == 2) {
+      p.square(x, y, p.random(40, 100));
+    } else if (shape == 3) {
+      p.strokeWeight(5);
+      p.line(x, y, x + p.random(40, 500), y - p.random(50, 450));
+    } else if (shape == 4) {
+      p.triangle(
+        x,
+        y,
+        x + p.random(40, 100),
+        y - p.random(50, 150),
+        x / 2,
+        y / 2
+      );
+    }
+  };
 }
 
 //
