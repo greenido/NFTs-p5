@@ -126,7 +126,7 @@ function randomSentence() {
     "A fit body a calm mind a house full of love. These things cannot be bought - they must be earned.",
     "Founders run every sprint as if they’re about to lose, but grind out the long race knowing that victory is inevitable.",
     "Its never been easier to start a company. Its never been harder to build one.",
-    "An early exit for your startup is a mirage in the desert. If you thirst for it, it disappears.",
+    "An early exit for your startup is a mirage in the desert. If you thirst for it it disappears.",
     "Read what you love until you love to read.",
     "Wealth creation is an evolutionarily recent positive-sum game.",
     "Status is an old zero-sum game. Those attacking wealth creation are often just seeking status.",
