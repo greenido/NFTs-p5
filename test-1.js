@@ -44,7 +44,7 @@ function sketch(p) {
         // The params to the CSV = the meta data for our NFT
         let row = randomTitle();
         row += "," + randomSentence() + ",";
-        row += "https://github.com/greenido/todo/" + maxShapes + ".png" + " ,";
+        row += "https://github.com/greenido/NFTs-p5/blob/main/images/m_" + maxShapes + ".png" + " ,";
         row += "#dce9b5,";
         row += "https://www.youtube.com/watch?v=IwmJ48Ke5SQ,";
         row += r1 + " / " + g1 + " / " + b1 + ",";
